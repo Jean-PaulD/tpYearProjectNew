@@ -6,14 +6,39 @@
 package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author JEAN-PAUL
  */
+@Entity
 public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true)
+
+    @OneToOne
+    @JoinColumn(name = "User_ID")
+    private List <Post> post;
+
+    @OneToOne
+    @JoinColumn(name = "User_ID")
+    private Complaints complaints;
+
+    @OneToOne
+    @JoinColumn(name = "User_ID")
+    private Notification notification;
+
     private String username;
     private String name;
     private String surname;
@@ -76,6 +101,18 @@ public class User implements Serializable {
         return id;
     }
 
+    public List<Post> getPost() {
+        return post;
+    }
+
+    public Complaints getComplaints() {
+        return complaints;
+    }
+
+    public Notification getNotification() {
+        return notification;
+    }
+
     public static class Builder {
 
         private Long id;
@@ -87,7 +124,27 @@ public class User implements Serializable {
         private String privillageLevel;
         private String dateCreted;
         private String experienceLevel;
+        private List <Post> post;
+        private Complaints complaints;
+        private Notification notification;
 
+        public Builder post(List <Post> value) {
+            this.post= value;
+            return this;
+        }
+        
+        public Builder complaints(Complaints value) {
+            this.complaints = value;
+            return this;
+        }
+        
+        public Builder notification(Notification value) {
+            this.notification = value;
+            return this;
+        }
+
+        
+        
         public Builder(String username) {
             this.username = username;
         }

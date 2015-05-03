@@ -7,13 +7,28 @@ package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author JEAN-PAUL
  */
+
+@Entity
 public class PostComments implements Serializable{
-      private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    private Post postObj;
+    
+    
       private String post;
       private String comment;
       
@@ -26,6 +41,7 @@ public class PostComments implements Serializable{
         id = builder.id;
         post = builder.post;
         comment = builder.comment;
+        postObj = builder.postObj;
     }
 
     public String getPost() {
@@ -40,14 +56,23 @@ public class PostComments implements Serializable{
         return id;
     }
 
+    public Post getPostObj() {
+        return postObj;
+    }
+
 
     public static class Builder {
-
+private Post postObj;
         private Long id;
         private String post;
       private String comment;
         public Builder(String post) {
             this.post = post;
+        }
+        
+        public Builder postObj(Post value){
+            this.postObj=value;
+            return this;
         }
         
         public Builder id(Long value){

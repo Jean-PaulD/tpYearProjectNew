@@ -7,14 +7,31 @@ package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author JEAN-PAUL
  */
+@Entity
 public class Admin implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    //@Column(unique = true)
+    
+   // @OneToOne
+    //@JoinColumn(name="Admin_ID")
+    private AccountInfo accouuntInfo;
+    
+    
     private String AdminID;
     private String username;
     private String post;
@@ -24,6 +41,7 @@ public class Admin implements Serializable {
         username = builder.username;
         AdminID = builder.AdminID;
         post = builder.post;
+        accouuntInfo = builder.accouuntInfo;
     }
 
     public Long getId() {
@@ -46,17 +64,27 @@ public class Admin implements Serializable {
 
     }
 
+    public AccountInfo getAccouuntInfo() {
+        return accouuntInfo;
+    }
+
     public static class Builder {
 
         private Long id;
         private String AdminID;
         private String username;
         private String post;
-
+        private AccountInfo accouuntInfo;
+        
         public Builder(String username) {
             this.username = username;
         }
 
+        public Builder accouuntInfo(AccountInfo value) {
+            this.accouuntInfo = value;
+            return this;
+        }
+        
         public Builder id(Long value) {
             this.id = value;
             return this;

@@ -7,13 +7,21 @@ package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author JEAN-PAUL
  */
+
+@Entity
 public class NoticeBoard implements Serializable {
-    Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String notice;
 
     public String getNotice() {

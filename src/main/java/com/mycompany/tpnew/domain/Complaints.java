@@ -7,25 +7,44 @@ package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author JEAN-PAUL
  */
+@Entity
 public class Complaints implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
     private String username;
     private String timestamp;
     private String complaint;
 
-    public Complaints(Builder builder){
+    public Complaints(Builder builder) {
         id = builder.id;
         username = builder.username;
         complaint = builder.complaint;
         timestamp = builder.timestamp;
+        user = builder.user;
     }
-    
+
     public String getComplaint() {
         return complaint;
     }
@@ -52,6 +71,12 @@ public class Complaints implements Serializable {
         private String username;
         private String timestamp;
         private String complaint;
+private User user;
+
+public Builder user(User value) {
+            this.user = value;
+            return this;
+        }
 
         public Builder(String username) {
             this.username = username;
@@ -66,7 +91,7 @@ public class Complaints implements Serializable {
             this.timestamp = value;
             return this;
         }
-        
+
         public Builder complaint(String value) {
             this.complaint = value;
             return this;
@@ -75,10 +100,11 @@ public class Complaints implements Serializable {
         public Builder copy(Complaints value) {
             this.username = value.getUsername();
             this.id = value.getId();
+            this.user = value.getUser();
             return this;
         }
-        
-        public Complaints build(){
+
+        public Complaints build() {
             return new Complaints(this);
         }
 
@@ -109,6 +135,5 @@ public class Complaints implements Serializable {
         }
         return true;
     }
-    
-    
+
 }

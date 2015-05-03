@@ -7,13 +7,23 @@ package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author JEAN-PAUL
  */
+@Entity
 public class Notification implements Serializable {
-
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -43,7 +53,12 @@ public class Notification implements Serializable {
         return true;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private User user;
+    
     private String comment;
     private String username;
 
@@ -55,6 +70,7 @@ public class Notification implements Serializable {
         id = builder.id;
         comment = builder.comment;
         username = builder.username;
+        user = builder.user;
     }
 
     public Long getId() {
@@ -69,15 +85,24 @@ public class Notification implements Serializable {
         return username;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public static class Builder {
 
         private Long id;
-
+private User user;
         private String comment;
         private String username;
 
         public Builder(String username) {
             this.username = username;
+        }
+        
+        public Builder user(User value) {
+            this.user = value;
+            return this;
         }
 
         public Builder id(Long value) {
@@ -95,6 +120,7 @@ public class Notification implements Serializable {
             this.id = value.getId();
             this.username = value.getUsername();
             this.comment = value.getComment();
+            this.user = value.getUser();
             return this;
         }
 

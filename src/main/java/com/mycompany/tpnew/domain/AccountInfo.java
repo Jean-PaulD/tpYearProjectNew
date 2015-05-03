@@ -6,14 +6,37 @@
 package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 
 /**
  *
  * @author JEAN-PAUL
  */
+@Entity
 public class AccountInfo implements Serializable {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true)
+    
+    @OneToOne
+    @JoinColumn(name="Account_ID")
+    private Admin admin;
+    
+    @OneToOne
+    @JoinColumn(name="Account_ID")
+    private User user;
+    
+    
     private String username;
     private String password;
     private String dateCreated;
@@ -40,6 +63,14 @@ public class AccountInfo implements Serializable {
 
     public String getDateCreated() {
         return dateCreated;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public static class Builder {

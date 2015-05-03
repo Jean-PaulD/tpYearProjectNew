@@ -6,19 +6,37 @@
 package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author JEAN-PAUL
  */
+@Entity
 public class Post implements Serializable {
-
-    private Long id;
+@   Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id; 
+    
+    
+    @OneToMany
+    @JoinColumn(name="Post_ID")   
+    private List<PostComments> postComments;
+    
+    
     private String username;
     private String post;
     private boolean accept;
     private int acceptNum;
-
+private User user;
     private Post() {
 
     }
@@ -29,7 +47,8 @@ public class Post implements Serializable {
         post = builder.post;
         accept = builder.accept;
         acceptNum = builder.acceptNum;
-
+        user = builder.user;
+        postComments = builder.postComments;
     }
 
     public String getUsername() {
@@ -52,6 +71,14 @@ public class Post implements Serializable {
         return id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public List<PostComments> getPostComments() {
+        return postComments;
+    }
+
     public static class Builder {
 
         private Long id;
@@ -59,11 +86,23 @@ public class Post implements Serializable {
         private String post;
         private boolean accept;
         private int acceptNum;
+private User user;
+private List<PostComments> postComments;
 
         public Builder(String username) {
             this.username = username;
         }
 
+        public Builder id(List<PostComments> value) {
+            this.postComments = value;
+            return this;
+        }
+        
+        public Builder id(User value) {
+            this.user = value;
+            return this;
+        }
+        
         public Builder id(Long value) {
             this.id = value;
             return this;
@@ -95,7 +134,8 @@ public class Post implements Serializable {
             this.acceptNum = value.getAcceptNum();
             this.post = value.getPost();
             this.username = value.getUsername();
-
+            this.user = value.getUser();
+            this.postComments = value.getPostComments();
             return this;
         }
 
