@@ -37,6 +37,10 @@ public class NoticeBoard implements Serializable {
     private NoticeBoard(){
     
     }
+
+    public Long getId() {
+        return id;
+    }
     
     public static class Builder{
         private String notice;
@@ -52,7 +56,7 @@ public class NoticeBoard implements Serializable {
 
         
         public Builder copy(NoticeBoard value){
-            this.id = value.id;
+            this.id = value.getId();
             this.notice = value.notice;
             return this;
         }

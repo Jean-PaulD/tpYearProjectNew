@@ -6,21 +6,20 @@
 package repository;
 
 import com.mycompany.tpnew.App;
-import com.mycompany.tpnew.config.factory.AccountFactory;
-
-import com.mycompany.tpnew.domain.AccountInfo;
-import com.mycompany.tpnew.repository.AccountInfoRepository;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import com.mycompany.tpnew.config.factory.NotificationFactory;
+import com.mycompany.tpnew.domain.Notification;
+import com.mycompany.tpnew.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.testng.Assert;
+import static org.testng.Assert.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  *
@@ -28,16 +27,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
  */
 @SpringApplicationConfiguration(classes= App.class)
 @WebAppConfiguration
-public class AccountRespositoryTest extends AbstractTestNGSpringContextTests{
+public class NotificationCrudTestNG extends AbstractTestNGSpringContextTests{
     
     private Long id;
     @Autowired 
-    private AccountInfoRepository repository;
+    private NotificationRepository repository;
     
     @Test
     public void create() throws Exception {
 
-        AccountInfo newAccount = AccountFactory
+        Notification newAccount = NotificationFactory
                 .createAccount("user1", "3rd", "xxx");
         
         repository.save(newAccount);
@@ -49,7 +48,7 @@ public class AccountRespositoryTest extends AbstractTestNGSpringContextTests{
     
     @org.testng.annotations.Test(dependsOnMethods = "create")
     public void read() throws Exception {
-        AccountInfo lecturer = repository.findOne(id);
+        Notification lecturer = repository.findOne(id);
         org.testng.Assert.assertNotNull(lecturer);
 
 
@@ -57,50 +56,33 @@ public class AccountRespositoryTest extends AbstractTestNGSpringContextTests{
 
     @org.testng.annotations.Test(dependsOnMethods = "read")
     public void update() throws Exception {
-        AccountInfo lecturer = repository.findOne(id);
+        Notification lecturer = repository.findOne(id);
 
-        AccountInfo newlewcturer = new AccountInfo
+        Notification newlewcturer = new Notification
                 .Builder(lecturer.getUsername())
                 .copy(lecturer)
-                .password("123")
+                .comment("123")
                 .build();
 
         repository.save(newlewcturer);
 
-        AccountInfo updatedLecturer = repository.findOne(id);
-        org.testng.Assert.assertEquals(updatedLecturer.getPassword(),"123");
+        Notification updatedLecturer = repository.findOne(id);
+        org.testng.Assert.assertEquals(updatedLecturer.getComment(),"123");
 
     }
 
     @org.testng.annotations.Test(dependsOnMethods = "update")
     public void delete() throws Exception {
-        AccountInfo lecturer = repository.findOne(id);
+        Notification lecturer = repository.findOne(id);
         repository.delete(lecturer);
-        AccountInfo deletedLecturer = repository.findOne(id);
+        Notification deletedLecturer = repository.findOne(id);
         org.testng.Assert.assertNull(deletedLecturer);
 
     }
-    
-    
 
     
-    public AccountRespositoryTest() {
-    }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public NotificationCrudTestNG() {
     }
 
     // TODO add test methods here.
@@ -108,4 +90,20 @@ public class AccountRespositoryTest extends AbstractTestNGSpringContextTests{
     //
     // @Test
     // public void hello() {}
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @BeforeMethod
+    public void setUpMethod() throws Exception {
+    }
+
+    @AfterMethod
+    public void tearDownMethod() throws Exception {
+    }
 }
