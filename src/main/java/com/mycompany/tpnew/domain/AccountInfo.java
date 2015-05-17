@@ -7,14 +7,7 @@ package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 
 /**
@@ -28,11 +21,11 @@ public class AccountInfo implements Serializable {
     private Long id;
     @Column(unique = true)
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="Account_ID")
     private Admin admin;
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="Account_ID")
     private User user;
     
