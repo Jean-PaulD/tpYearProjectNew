@@ -64,7 +64,7 @@ public class PostCrudTestNG extends AbstractTestNGSpringContextTests{
         repository.save(newlewcturer);
 
         Post updatedLecturer = repository.findOne(id);
-        org.testng.Assert.assertEquals(updatedLecturer.getAcceptNum(),true);
+        org.testng.Assert.assertEquals(updatedLecturer.getAcceptNum(),3);
 
     }
 
