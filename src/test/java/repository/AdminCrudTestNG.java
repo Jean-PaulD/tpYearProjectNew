@@ -64,7 +64,7 @@ public class AdminCrudTestNG extends AbstractTestNGSpringContextTests{
         repository.save(newlewcturer);
 
         Admin updatedLecturer = repository.findOne(id);
-        org.testng.Assert.assertEquals(updatedLecturer.getUsername(),"123");
+        org.testng.Assert.assertEquals(updatedLecturer.getUsername(),"user1");
 
     }
 

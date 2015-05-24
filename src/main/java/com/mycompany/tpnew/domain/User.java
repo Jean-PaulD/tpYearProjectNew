@@ -7,13 +7,7 @@ package com.mycompany.tpnew.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  *
@@ -27,15 +21,15 @@ public class User implements Serializable {
     private Long id;
     @Column(unique = true)
 
-    @OneToOne
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "User_ID")
     private List <Post> post;
 
-    @OneToOne
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "User_ID")
-    private Complaints complaints;
+    private List <Complaints> complaints;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "User_ID")
     private Notification notification;
 
@@ -105,7 +99,7 @@ public class User implements Serializable {
         return post;
     }
 
-    public Complaints getComplaints() {
+    public List<Complaints> getComplaints() {
         return complaints;
     }
 
@@ -125,7 +119,7 @@ public class User implements Serializable {
         private String dateCreted;
         private String experienceLevel;
         private List <Post> post;
-        private Complaints complaints;
+        private List<Complaints> complaints;
         private Notification notification;
 
         public Builder post(List <Post> value) {
@@ -133,7 +127,7 @@ public class User implements Serializable {
             return this;
         }
         
-        public Builder complaints(Complaints value) {
+        public Builder complaints(List<Complaints> value) {
             this.complaints = value;
             return this;
         }
@@ -200,6 +194,8 @@ public class User implements Serializable {
             this.privillageLevel = value.getPrivillageLevel();
             this.dateCreted = value.getDateCreted();
             this.experienceLevel = value.getExperienceLevel();
+            this.complaints = value.getComplaints();
+            this.post = value.getPost();
             return this;
         }
 

@@ -5,6 +5,8 @@
  */
 package com.mycompany.tpnew.domain;
 
+import org.hibernate.annotations.CascadeType;
+
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -25,15 +27,15 @@ public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //@Column(unique = true)
-    
-   // @OneToOne
-    //@JoinColumn(name="Admin_ID")
+    @Column(unique = true)
+    private String AdminID;
+    private String username;
+    @OneToOne
+    @JoinColumn(name="Admin_ID")
     private AccountInfo accouuntInfo;
     
     
-    private String AdminID;
-    private String username;
+
     private String post;
 
     public Admin(Builder builder) {

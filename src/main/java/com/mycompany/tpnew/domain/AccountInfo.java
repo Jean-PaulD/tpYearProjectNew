@@ -20,17 +20,17 @@ public class AccountInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true)
-    
-    @OneToOne(fetch = FetchType.EAGER)
+    private String username;
+    @OneToOne//(cascade = CascadeType.ALL)//(fetch = FetchType.EAGER)
     @JoinColumn(name="Account_ID")
     private Admin admin;
     
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="Account_ID")
+    @OneToOne//(cascade = CascadeType.ALL)//(fetch = FetchType.EAGER)
+    @JoinColumn(name="Account_ID2")
     private User user;
     
     
-    private String username;
+
     private String password;
     private String dateCreated;
 
@@ -72,11 +72,24 @@ public class AccountInfo implements Serializable {
         private String username;
         private String password;
         private String dateCreated;
-        
+        private Admin admin;
+        private User user;
+
+
         public Builder(String username) {
             this.username = username;
         }
-        
+
+        public Builder admin(Admin value){
+            this.admin = value;
+            return this;
+        }
+
+        public Builder user(User value){
+            this.user = value;
+            return this;
+        }
+
         public Builder id(Long value){
             this.id=value;
             return this;
