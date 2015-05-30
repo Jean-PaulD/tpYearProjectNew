@@ -23,7 +23,7 @@ import java.util.List;
 public class ComplaintsPage {
     @Autowired
     private ComplaintsService service;
-    @RequestMappingcomplaints1(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public List<Complaints> getComplaints(@PathVariable Long id) {
         return service.getComplaints();
     }
@@ -43,7 +43,7 @@ public class ComplaintsPage {
             Link complaints1 = new
                     Link("http://localhost:8080/complaint/"+res.getResid().toString())
                     .withRel("comps");
-            res.add(complaints1);
+            //res.add(complaints1);
             hateos.add(res);
         }
         return hateos;
